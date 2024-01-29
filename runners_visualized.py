@@ -172,6 +172,9 @@ def sleep2(id, metric):
     plot = sleep_plot(id, metric)
     return plot
 
+#this makes the app consist out of tabs 
+app = pn.Tabs()
+
 #creates the header for the dashboard
 header = '# Runners Visualized'
 
@@ -195,12 +198,37 @@ layout = pn.Row(
 
 
 #combine header and layout to create the full dashboard
-app = pn.Column(
+plot_layout = pn.Column(
     header,
     pn.Row(
         layout
     )
 )
+
+#content for the info tab
+info = """# what is runners visualized?
+ ### runners visualized is a dashboard that attempts to visualize data from people that recorded certain statistics about their runs for a long period of time.
+ ### It also shows how these statistics change during injuries the runners have received. Runners visualized has three different plot types. The first plot type is a line
+ ### graph of certain statistics over time, that also allows you to view the change in the statistic when injuries are suffered. The second plot type are two boxplots that
+ ### show the difference in the range of the statistics between the morning and the evening. And the third plot is a scatter plot of how the statistics change for how many
+ ### hours people have slept. The dashboard also contains an info page explaining the dashboard. And a tab that shows all of the injuries suffered.
+ 
+ # What are the metrics?
+ ## RPE
+ ### RPE stands for the Rate of Perceived Exertion. It is a subjective scale of 1 to 20 where the runners wrote down how much they feel they exerted themselves.
+
+ ## TQR
+ ### TQR stands for the Total Quality of Recovery. It is a subjective scale of 1 to 20 where the runners wrote down how well they felt they had recovered since the last 
+ ### time they ran.
+
+ ## DURATION
+ ### DURATION is how long the runners ran in minutes.
+ """
+
+#this creates the tabs with the correct content
+app.append(('Plots', plot_layout))
+app.append(('Info', info))
+app.append(('Injuries', blessure))
 
 #start the app
 app.show()
